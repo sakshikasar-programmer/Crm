@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Leads - CRM</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f6f9;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(90deg, #2c3e50, #4ca1af);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .logout {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+        }
+
+        .logout a {
+            color: white;
+            background: #e74c3c;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 220px;
+            height: 100vh;
+            background: #2c3e50;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 14px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: #1abc9c;
+            padding-left: 20px;
+        }
+
+        /* CONTENT */
+        .content {
+            margin-left: 220px;
+            padding: 25px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        /* CARDS */
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            flex: 1;
+            min-width: 200px;
+            padding: 20px;
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            margin: 0;
+        }
+
+        .card p {
+            font-size: 22px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .total { background: #3498db; }
+        .new { background: #9b59b6; }
+        .converted { background: #2ecc71; }
+        .pending { background: #e67e22; }
+
+        /* BUTTON */
+        .add-btn {
+            margin-top: 20px;
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .add-btn:hover {
+            background: #219150;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            margin-top: 25px;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+
+        tr:hover {
+            background: #ecf0f1;
+        }
+
+        /* STATUS */
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            color: white;
+            font-size: 12px;
+        }
+
+        .status.NEW { background: #3498db; }
+        .status.CONTACTED { background: #f39c12; }
+        .status.CONVERTED { background: #2ecc71; }
+
+        /* ACTION */
+        .action-btn {
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            margin: 2px;
+            font-size: 12px;
+        }
+
+        .edit { background: #f39c12; }
+        .delete { background: #e74c3c; }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    Leads Management
+    <div class="logout">
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="sidebar">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/customers">Customers</a>
+    <a href="/leads">Leads</a>
+    <a href="/sales">Sales</a>
+    <a href="/reports">Reports</a>
+</div>
+
+<div class="content">
+
+    <h2>📊 Leads Overview</h2>
+
+    <div class="cards">
+        <div class="card total">
+            <h3>Total Leads</h3>
+            <p th:text="${total}"></p>
+        </div>
+
+        <div class="card new">
+            <h3>New Leads</h3>
+            <p th:text="${newLeads}"></p>
+        </div>
+
+        <div class="card converted">
+            <h3>Converted</h3>
+            <p th:text="${converted}"></p>
+        </div>
+
+        <div class="card pending">
+            <h3>Follow-ups</h3>
+            <p th:text="${pending}"></p>
+        </div>
+    </div>
+
+    <a href="/add-lead" class="add-btn">+ Add Lead</a>
+
+    <h2>Leads List</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Source</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+		<tbody th:if="${leads != null}">
+		<tr th:each="lead : ${leads}">
+        
+                <td th:text="${lead.id}"></td>
+                <td th:text="${lead.name}"></td>
+                <td th:text="${lead.email}"></td>
+                <td th:text="${lead.phone}"></td>
+                <td th:text="${lead.source}"></td>
+
+                <td>
+                    <span class="status"
+                          th:text="${lead.status}"
+                          th:classappend="${lead.status}">
+                    </span>
+                </td>
+
+                <td>
+					<a th:href="@{'/edit-lead/' + ${lead.id}}" class="action-btn edit">Edit</a>
+                    <a th:href="@{'/delete-lead/' + ${lead.id}}" class="action-btn delete">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

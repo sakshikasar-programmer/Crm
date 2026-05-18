@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Lead</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #ecf0f1;
+            margin: 0;
+        }
+
+        .form-card {
+            width: 400px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #27ae60;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #219150;
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            color: #27ae60;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-card">
+        <h2 th:text="${lead.id == null} ? '➕ Add Lead' : '✏️ Edit Lead'"></h2>
+
+        <form th:action="@{/save-lead}" th:object="${lead}" method="post">
+
+            <!-- Hidden ID for update -->
+            <input type="hidden" th:field="*{id}">
+
+            <input type="text" th:field="*{name}" placeholder="Enter Name" required>
+
+            <input type="email" th:field="*{email}" placeholder="Enter Email" required>
+
+            <input type="text" th:field="*{phone}" placeholder="Enter Phone" required>
+
+            <input type="text" th:field="*{source}" placeholder="Enter Source">
+
+            <select th:field="*{status}" required>
+                <option value="">-- Select Status --</option>
+                <option value="NEW">NEW</option>
+                <option value="CONTACTED">CONTACTED</option>
+                <option value="CONVERTED">CONVERTED</option>
+            </select>
+
+            <button type="submit">Save</button>
+            <a href="/leads" class="back-btn">Back</a>
+
+        </form>
+    </div>
+
+</body>
+</html>

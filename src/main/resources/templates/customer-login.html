@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Login</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family: Arial, sans-serif;
+            height:100vh;
+
+            background:
+                linear-gradient(rgba(0,0,0,0.55),
+                rgba(0,0,0,0.55)),
+                url('https://images.unsplash.com/photo-1521791136064-7986c2920216')
+                no-repeat center center/cover;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .login-box{
+
+            width:380px;
+            padding:40px;
+            border-radius:18px;
+
+            background:rgba(255,255,255,0.15);
+
+            backdrop-filter:blur(12px);
+
+            box-shadow:0 8px 32px rgba(0,0,0,0.35);
+
+            color:white;
+            text-align:center;
+        }
+
+        .login-box h2{
+            margin-bottom:30px;
+            font-size:30px;
+            letter-spacing:1px;
+        }
+
+        .input-box{
+            margin-bottom:20px;
+        }
+
+        .input-box input{
+
+            width:100%;
+            padding:14px;
+
+            border:none;
+            border-radius:8px;
+
+            outline:none;
+
+            font-size:15px;
+
+            background:rgba(255,255,255,0.92);
+        }
+
+        .input-box input:focus{
+            border:2px solid #27ae60;
+        }
+
+        .login-btn{
+
+            width:100%;
+            padding:14px;
+
+            border:none;
+            border-radius:8px;
+
+            background:#27ae60;
+
+            color:white;
+            font-size:16px;
+            font-weight:bold;
+
+            cursor:pointer;
+
+            transition:0.3s;
+        }
+
+        .login-btn:hover{
+
+            background:#1e8449;
+
+            transform:scale(1.02);
+        }
+
+        .back-btn{
+
+            display:inline-block;
+
+            margin-top:18px;
+
+            text-decoration:none;
+
+            color:white;
+
+            font-size:14px;
+        }
+
+        .back-btn:hover{
+            text-decoration:underline;
+        }
+
+        .error{
+
+            margin-bottom:15px;
+
+            color:#ffb3b3;
+
+            font-size:14px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h2>Customer Login</h2>
+
+    <!-- Error Message -->
+    <div th:if="${error}" class="error">
+        <p th:text="${error}"></p>
+    </div>
+
+	<form method="post" action="/customer-login">
+
+        <div class="input-box">
+
+            <input type="email"
+                   name="email"
+                   placeholder="Enter Email"
+                   required>
+
+        </div>
+
+        <div class="input-box">
+
+            <input type="password"
+                   name="password"
+                   placeholder="Enter Password"
+                   required>
+
+        </div>
+
+        <button type="submit" class="login-btn">
+            Login
+        </button>
+
+    </form>
+
+    <a href="/login" class="back-btn">
+        ← Back to Admin Login
+    </a>
+	<!-- Success Popup -->
+	<div th:if="${success}" class="popup success">
+	    <p th:text="${success}"></p>
+	</div>
+
+	<!-- Error Popup -->
+	<div th:if="${error}" class="popup error">
+	    <p th:text="${error}"></p>
+	</div>
+</div>
+
+</body>
+</html>

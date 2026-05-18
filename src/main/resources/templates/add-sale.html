@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Sale</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #ecf0f1;
+            margin: 0;
+        }
+
+        .form-card {
+            width: 400px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #27ae60;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #219150;
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            color: #27ae60;
+        }
+    </style>
+</head>
+
+<body>
+
+	<div class="form-card">
+
+	    <!-- Dynamic Heading -->
+	    <h2 th:text="${sale.id == null} ? '➕ Add Sale' : '✏️ Edit Sale'"></h2>
+
+	    <form th:action="@{/save-sale}" th:object="${sale}" method="post">
+
+	        <!-- Hidden ID (used for update) -->
+	        <input type="hidden" th:field="*{id}">
+
+	        <label>Customer</label>
+	        <input type="text" th:field="*{customer}" placeholder="Enter Customer" required>
+
+	        <label>Product</label>
+	        <input type="text" th:field="*{product}" placeholder="Enter Product" required>
+
+	        <label>Amount</label>
+	        <input type="number" th:field="*{amount}" placeholder="Enter Amount" required>
+
+	        <label>Status</label>
+	        <select th:field="*{status}" required>
+	            <option value="">-- Select Status --</option>
+	            <option value="COMPLETED">COMPLETED</option>
+	            <option value="PENDING">PENDING</option>
+	        </select>
+
+	        <!-- Dynamic Button -->
+	        <button type="submit"
+	                th:text="${sale.id == null} ? '💾 Save Sale' : '🔄 Update Sale'">
+	        </button>
+
+	        <a href="/sales" class="back-btn">⬅ Back</a>
+
+	    </form>
+	</div>
+</body>
+</html>

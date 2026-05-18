@@ -1,0 +1,209 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Customers - CRM</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logout {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+        }
+
+        .logout a {
+            color: white;
+            text-decoration: none;
+            background: red;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+
+        .sidebar {
+            width: 200px;
+            height: 100vh;
+            background: #34495e;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background: #1abc9c;
+        }
+
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+        }
+
+        .card {
+            display: inline-block;
+            width: 220px;
+            padding: 20px;
+            margin: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .card h3 {
+            margin: 10px 0;
+        }
+
+        .highlight {
+            color: #2980b9;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .add-btn {
+            margin-top: 20px;
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 0 5px gray;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #2c3e50;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            margin: 2px;
+        }
+
+        .edit {
+            background: orange;
+        }
+
+        .delete {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h2>Customer Management</h2>
+    <div class="logout">
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="sidebar">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/customers">Customers</a>
+    <a href="/leads">Leads</a>
+    <a href="/sales">Sales</a>
+    <a href="/reports">Reports</a>
+</div>
+
+<div class="content">
+
+    <h2>👥 Customers Overview</h2>
+
+    <!-- Cards -->
+    <div class="card">
+        <h3>Total Customers</h3>
+		<p class="highlight" th:text="${totalCustomers}">0</p>
+    </div>
+
+    <div class="card">
+        <h3>Active Customers</h3>
+		<p class="highlight" th:text="${activeCustomers}">0</p>
+
+    </div>
+
+    <div class="card">
+        <h3>New This Month</h3>
+		<p class="highlight" th:text="${newCustomers}">0</p>
+    </div>
+<br>
+    <!-- Add Button -->
+    <a href="/add-customer" class="add-btn">+ Add Customer</a>
+
+    <!-- Table -->
+    <h2>Customer List</h2>
+
+	<table>
+	    <tr>
+	        <th>ID</th>
+	        <th>Name</th>
+	        <th>Email</th>
+	        <th>Phone</th>
+	        <th>City</th>
+	        <th>Action</th>
+	    </tr>
+
+	    <tr th:each="c : ${customers}">
+	        <td th:text="${c.id}"></td>
+	        <td th:text="${c.name}"></td>
+	        <td th:text="${c.email}"></td>
+	        <td th:text="${c.phone}"></td>
+	        <td th:text="${c.city}"></td>
+	        <td>
+	            <a th:href="@{'/edit/' + ${c.id}}" class="action-btn edit">Edit</a>
+	            <a th:href="@{'/delete/' + ${c.id}}" 
+	               class="action-btn delete"
+	               onclick="return confirm('Delete this customer?')">
+	               Delete
+	            </a>
+	        </td>
+	    </tr>
+
+	</table>
+
+</div>
+
+</body>
+</html>

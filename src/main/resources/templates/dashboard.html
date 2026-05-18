@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CRM Dashboard</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .sidebar {
+            width: 200px;
+            height: 100vh;
+            background: #34495e;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background: #1abc9c;
+        }
+
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+        }
+
+        .card {
+            display: inline-block;
+            width: 200px;
+            padding: 20px;
+            margin: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 5px gray;
+            text-align: center;
+        }
+
+        .logout {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+        }
+
+        .logout a {
+            color: white;
+            text-decoration: none;
+            background: red;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h2>CRM Dashboard</h2>
+    <div class="logout">
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="sidebar">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/customers">Customers</a>
+    <a href="/leads">Leads</a>
+    <a href="/sales">Sales</a>
+    <a href="/reports">Reports</a>
+</div>
+
+<div class="content">
+
+    <h2>Welcome to CRM System made by ssk 👋</h2>
+
+    <div class="card">
+        <h3>Customers</h3>
+		<p th:text="${customers}">0</p>
+    </div>
+
+    <div class="card">
+        <h3>Leads</h3>
+		<p th:text="${leads}">0</p>
+    </div>
+
+    <div class="card">
+        <h3>Sales</h3>
+		<p th:text="${sales}">0</p>
+    </div>
+
+    <div class="card">
+        <h3>Tasks</h3>
+		<p th:text="${tasks}">0</p>
+    </div>
+
+</div>
+
+</body>
+</html>

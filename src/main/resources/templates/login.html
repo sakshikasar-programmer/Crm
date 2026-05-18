@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CRM Login</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family: Arial, sans-serif;
+            height:100vh;
+            background:
+                linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                url('https://images.unsplash.com/photo-1556745757-8d76bdb6984b')
+                no-repeat center center/cover;
+            overflow:hidden;
+        }
+
+        /* Top Bar */
+        .top-bar{
+            position:absolute;
+            top:20px;
+            right:30px;
+            z-index:10;
+        }
+
+        /* Customer Button */
+        .customer-btn{
+            text-decoration:none;
+            color:white;
+            background:#27ae60;
+            padding:12px 20px;
+            border-radius:8px;
+            font-size:14px;
+            font-weight:bold;
+            transition:0.3s;
+            box-shadow:0 4px 10px rgba(0,0,0,0.3);
+            display:inline-block;
+        }
+
+        .customer-btn:hover{
+            background:#1e8449;
+            transform:translateY(-2px);
+        }
+
+        /* Main Container */
+        .container{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        /* Login Box */
+        .login-box{
+            width:360px;
+            padding:40px 35px;
+            border-radius:15px;
+            background:rgba(255,255,255,0.15);
+            backdrop-filter:blur(12px);
+            box-shadow:0 8px 32px rgba(0,0,0,0.35);
+            text-align:center;
+            color:white;
+        }
+
+        .login-box h2{
+            margin-bottom:25px;
+            font-size:30px;
+            letter-spacing:1px;
+        }
+
+        /* Input Fields */
+        .input-box{
+            margin-bottom:18px;
+        }
+
+        .input-box input{
+            width:100%;
+            padding:13px;
+            border:none;
+            border-radius:8px;
+            outline:none;
+            font-size:15px;
+            background:rgba(255,255,255,0.9);
+        }
+
+        .input-box input:focus{
+            border:2px solid #3498db;
+        }
+
+        /* Login Button */
+        .login-btn{
+            width:100%;
+            padding:13px;
+            border:none;
+            border-radius:8px;
+            background:#3498db;
+            color:white;
+            font-size:16px;
+            font-weight:bold;
+            cursor:pointer;
+            transition:0.3s;
+            margin-top:10px;
+        }
+
+        .login-btn:hover{
+            background:#2980b9;
+            transform:scale(1.02);
+        }
+
+        /* Footer */
+        .footer-text{
+            margin-top:18px;
+            font-size:13px;
+            color:#ddd;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Right Customer Login Button -->
+    <div class="top-bar">
+        <a th:href="@{/customer_login}" class="customer-btn">
+            Customer Login
+        </a>
+    </div>
+
+    <!-- Center Login Box -->
+    <div class="container">
+
+        <div class="login-box">
+
+            <h2>CRM Admin Login</h2>
+
+            <form method="post" action="/login">
+
+                <div class="input-box">
+                    <input type="text"
+                           name="username"
+                           placeholder="Enter Username"
+                           required>
+                </div>
+
+                <div class="input-box">
+                    <input type="password"
+                           name="password"
+                           placeholder="Enter Password"
+                           required>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Admin Login
+                </button>
+
+            </form>
+
+            <div class="footer-text">
+                CRM Management System
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
